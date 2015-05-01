@@ -80,6 +80,34 @@ describe('Compile tests', function() {
                     });
                 });
 
+                it('compiles with asHTMLGenerator', function asDOMGeneratorTest(done) {
+                    var ctx = new CompilerContext();
+                    var generator = parser(source).asHTMLGenerator(ctx);
+                    var generatorLive = eval('(' + generator + ')');
+                    var generatorRun = generatorLive(SCOPE);
+
+                    jsdom.env(generatorRun, function(err, window) {
+                        if (err) {
+                            done(err);
+                            return;
+                        }
+
+                        var parsedHTML = window.document.body.innerHTML;
+
+                        jsdom.env(expected, function(err, window) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+
+
+                            assert.equal(parsedHTML, window.document.body.innerHTML);
+                            done();
+                        });
+
+                    });
+                });
+
             });
         }
     );

@@ -1,0 +1,31 @@
+{
+  "name": "breezeblock",
+  "version": "0.1.0",
+  "description": "A flexible JS-based templating engine",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --recursive --reporter=dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattbasta/breezeblock.git"
+  },
+  "keywords": [
+    "js",
+    "template",
+    "templating",
+    "dom"
+  ],
+  "author": "Matt Basta <mattbasta@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattbasta/breezeblock/issues"
+  },
+  "homepage": "https://github.com/mattbasta/breezeblock",
+  "devDependencies": {
+    "jsdom": "^3.1.2"
+  }
+}

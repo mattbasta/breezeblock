@@ -2,7 +2,10 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 
-var ictx = require('../../lib/InterpreterContext');
+var jsdom = require('jsdom');
+
+var CompilerContext = require('../../lib/CompilerContext');
+var InterpreterContext = require('../../lib/InterpreterContext');
 var parser = require('../../lib/parser');
 
 
@@ -23,6 +26,12 @@ function globEach(path_, ext, callback) {
 
 describe('Compile tests', function() {
 
+    var SCOPE = {
+        foo: 'Fooval',
+        bar: 'Barval',
+        unsafeVar: 'This & That',
+    };
+
     globEach(
         path.resolve(__dirname, 'compiletests'),
         '.brz',
@@ -34,15 +43,43 @@ describe('Compile tests', function() {
             }
 
             describe(btPath, function() {
-                it('parses', function parseTest() {
-                    var ctx = new ictx({
-                        foo: 'Foo',
-                        bar: 'Bar',
-                    });
+
+                it('compiles with asHTML', function asHTMLTest() {
+                    var ctx = new InterpreterContext(SCOPE);
 
                     var asHTML = parser(source).asHTML(ctx);
                     assert.equal(asHTML, expected);
                 });
+
+                it('compiles with asDOMGenerator', function asDOMGeneratorTest(done) {
+                    var ctx = new CompilerContext();
+                    var generator = parser(source).asDOMGenerator(ctx);
+                    var generatorLive = eval('(' + generator + ')');
+
+                    jsdom.env('', function(err, window) {
+                        if (err) {
+                            done(err);
+                            return;
+                        }
+
+                        var document = window.document;
+                        var boundNode = document.createElement('div');
+                        var generatorRun = generatorLive(document, boundNode, SCOPE);
+
+                        jsdom.env(expected, function(err, window) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+
+
+                            assert.equal(boundNode.innerHTML, window.document.body.innerHTML);
+                            done();
+                        });
+
+                    });
+                });
+
             });
         }
     );

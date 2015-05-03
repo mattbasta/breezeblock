@@ -2,6 +2,8 @@
 
 An experimental templating language for JS that can compile directly to DOM.
 
+Compatible with all modern browsers and IE9+.
+
 
 ## Technique
 

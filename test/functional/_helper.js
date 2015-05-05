@@ -30,6 +30,10 @@ describe('Compile tests', function() {
         foo: 'Fooval',
         bar: 'Barval',
         unsafeVar: 'This & That',
+
+        isTrue: true,
+        isFalse: false,
+        isNull: null,
     };
 
     globEach(
@@ -54,6 +58,7 @@ describe('Compile tests', function() {
                 it('compiles with asDOMGenerator', function asDOMGeneratorTest(done) {
                     var ctx = new CompilerContext();
                     var generator = parser(source).asDOMGenerator(ctx);
+                    // console.log(generator);
                     var generatorLive = eval('(' + generator + ')');
 
                     jsdom.env('', function(err, window) {

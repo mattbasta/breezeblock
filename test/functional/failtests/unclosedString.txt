@@ -1,1 +1,1 @@
-SyntaxError: Unexpected token ">", expected """
+SyntaxError: Unexpected token ">", expected """ at line 1 near "</foo>"

@@ -48,7 +48,7 @@ describe('Compile tests', function() {
                     var ctx = new InterpreterContext(SCOPE);
 
                     var asHTML = parser(source).asHTML(ctx);
-                    assert.equal(asHTML, expected);
+                    assert.equal(asHTML, expected.trim());
                 });
 
                 it('compiles with asDOMGenerator', function asDOMGeneratorTest(done) {
@@ -66,7 +66,7 @@ describe('Compile tests', function() {
                         var boundNode = document.createElement('div');
                         var generatorRun = generatorLive(document, boundNode, SCOPE);
 
-                        jsdom.env(expected, function(err, window) {
+                        jsdom.env(expected.trim(), function(err, window) {
                             if (err) {
                                 done(err);
                                 return;
@@ -94,7 +94,7 @@ describe('Compile tests', function() {
 
                         var parsedHTML = window.document.body.innerHTML;
 
-                        jsdom.env(expected, function(err, window) {
+                        jsdom.env(expected.trim(), function(err, window) {
                             if (err) {
                                 done(err);
                                 return;

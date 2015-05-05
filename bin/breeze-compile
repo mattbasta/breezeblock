@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+
+var breezeblock = require('../index');
+
+
+if (!process.argv[2]) {
+    console.error('$ breeze-compile <path to brz file>');
+    process.exit(1);
+}
+
+
+var content = fs.readFileSync(process.argv[2]).toString();
+var parsed = breezeblock.parse(content);
+console.log(breezeblock.asDOMGenerator(parsed));

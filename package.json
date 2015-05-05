@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "bin": {
+    "breeze-compile": "./bin/breeze-compile"
+  },
   "scripts": {
     "test": "mocha --recursive --reporter=dot"
   },

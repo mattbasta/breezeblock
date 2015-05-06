@@ -34,6 +34,8 @@ describe('Compile tests', function() {
         isTrue: true,
         isFalse: false,
         isNull: null,
+
+        isChecked: 'checked'
     };
 
     globEach(

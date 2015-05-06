@@ -79,5 +79,4 @@ Node contents can be variable:
   - Subscript expressions `{{foo[bar]}}`
 - Support for "noescape" (triple brace `{{{foo}}}`)
 - Support for expressions within strings `<img src="{{cdn}}/img/{{imagePath}}" />`
-- Support for valueless attributes `<input type="checkbox" checked>`
 - Support for eliminating the closing slash on self-closing tags

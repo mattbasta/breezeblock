@@ -53,6 +53,11 @@ Attribute names and values may be variable:
 ```mustache
 <div {{foo}}="bar"></div>
 <div data-foo={{bar}}></div>
+
+<!--
+`fieldChecked` and `fieldReadonly` should contain "checked" and "readonly respectively"
+-->
+<input type="text" {{fieldChecked}} {{fieldReadonly}} />
 ```
 
 

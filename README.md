@@ -10,7 +10,7 @@ Compatible with all modern browsers and IE9+.
 BreezeBlock templates can compile to a number of different formats:
 
 - HTML, like most other templating engines
-- Precompiled HTML generator (WIP)
+- Precompiled HTML generator
 - Precompiled DOM generator
 
 

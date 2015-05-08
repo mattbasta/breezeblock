@@ -61,7 +61,13 @@ describe('Compile tests', function() {
                     var ctx = new CompilerContext();
                     var generator = parser(source).asDOMGenerator(ctx);
                     // console.log(generator);
-                    var generatorLive = eval('(' + generator + ')');
+                    var generatorLive;
+                    try {
+                        generatorLive = eval('(' + generator + ')');
+                    } catch (e) {
+                        console.error(generator);
+                        throw e;
+                    }
 
                     jsdom.env('', function(err, window) {
                         if (err) {

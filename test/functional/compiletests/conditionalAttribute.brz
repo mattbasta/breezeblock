@@ -1,0 +1,1 @@
+<div {% if isTrue %}data-attr="true"{% else %}data-attr="false"{%/ if %}></div>

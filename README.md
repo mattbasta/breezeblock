@@ -18,7 +18,7 @@ The HTML format simply outputs a string of markup when the template is rendered.
 
 ```html
 <!-- This: -->
-<img src={{foo}} />
+<img src={{foo}}>
 
 <!-- becomes this: -->
 <script>
@@ -35,15 +35,17 @@ The HTML format simply outputs a string of markup when the template is rendered.
 
 ## Documentation
 
-Write HTML as you normally would. Self-closing tags (like `<img>`) must use a closing slash (`<img />`), though this requirement may be lifted in the future.
+Write HTML as you normally would. Self-closing tags that are not [void elements](http://www.w3.org/html/wg/drafts/html/master/single-page.html#void-elements) must use a closing slash (`<foo />`).
 
 
 ```html
 <div>
   Text nodes can be included inline
-  <br />
+  <br>
   <!-- HTML comments are welcome -->
   <b class="really-bold">Mix and match tags</b>
+
+  <my-custom-element />
 </div>
 ```
 
@@ -57,14 +59,19 @@ Attribute names and values may be variable:
 <!--
 `fieldChecked` and `fieldReadonly` should contain "checked" and "readonly respectively"
 -->
-<input type="text" {{fieldChecked}} {{fieldReadonly}} />
+<input type="text" {{fieldChecked}} {{fieldReadonly}}>
+
+<!-- Attributes may be conditional -->
+<img src="foo.jpg" alt="" {% if imageTitle %}title={{imageTitle}}{%/ if %}>
+<input type="checkbox" {% if checkboxChecked %}checked{%/ if %}>
 ```
 
 
 Node contents can be variable:
 
 ```mustache
-<div>{{value}}</div>
+<div>Here is my {{value}}</div>
+<aside>{{value}}</aside>
 ```
 
 

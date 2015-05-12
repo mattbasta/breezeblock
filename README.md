@@ -75,8 +75,6 @@ Node contents can be variable:
   - `{% if ... %}`
   - ...
 - Figure out where each language construct should be usable
-  - Conditional attributes
-  - Conditional attribute names
   - Conditional attribute values
   - Loops to define attributes
 - More expression features

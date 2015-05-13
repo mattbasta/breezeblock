@@ -35,7 +35,12 @@ describe('Compile tests', function() {
         isFalse: false,
         isNull: null,
 
-        isChecked: 'checked'
+        isChecked: 'checked',
+
+        nested: {
+            nestfoo: 'Nestfooval',
+            nestbar: 'Nestbarval',
+        },
     };
 
     globEach(

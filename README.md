@@ -13,7 +13,6 @@ BreezeBlock templates can compile to a number of different formats:
 - Precompiled HTML generator
 - Precompiled DOM generator
 
-
 The HTML format simply outputs a string of markup when the template is rendered. The Precompiled HTML generator format outputs the template as JavaScript, preventing unnecessary overhead from parsing the template and traversing its AST. This feature is implemented in many templating engines. The DOM generator is unique: the template is output as JavaScript that directly generates DOM using `createElement` and `createTextNode`.
 
 ```html
@@ -31,6 +30,14 @@ The HTML format simply outputs a string of markup when the template is rendered.
   }
 </script>
 ```
+
+
+## Benefits
+
+1. **Safety**: Because `innerHTML` is never used and markup is never concatenated with user-provided data, there is virtually no risk of XSS.
+2. **Performance**: Because DOM is directly manipulated, there is no overhead of concatenating large strings or parsing the generated markup (if rendered on the client).
+3. **Hygiene**: Breezeblock gives you a great deal of freedom with your templates while preventing you from using many common template antipatterns, like dynamically naming nodes. This keeps templates simple and maintainable.
+4. **Support**: Using custom elements? Breezeblock should "just work". Using something custom? Pass your own `document` object to the DOM generation function.
 
 
 ## Documentation
@@ -85,7 +92,6 @@ Node contents can be variable:
   - Conditional attribute values
   - Loops to define attributes
 - More expression features
-  - Member expressions `{{foo.bar}}`
   - Subscript expressions `{{foo[bar]}}`
 - Support for "noescape" (triple brace `{{{foo}}}`)
-- Support for expressions within strings `<img src="{{cdn}}/img/{{imagePath}}" />`
+- Support for expressions within strings `<img src="{{cdn}}/img/{{imagePath}}">`

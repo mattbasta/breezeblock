@@ -41,6 +41,10 @@ describe('Compile tests', function() {
             nestfoo: 'Nestfooval',
             nestbar: 'Nestbarval',
         },
+
+        identNestfoo: 'nestfoo',
+
+        arr: ['one', 'two', 'three'],
     };
 
     globEach(

@@ -82,16 +82,21 @@ Node contents can be variable:
 ```
 
 
+Expressions can use dot notation and subscripts:
+
+```mustache
+<img src={{images[index].src}} alt={{images[index]["alt"]}}>
+<img src={{images[0].src}} alt={{images[0]["alt"]}}>
+```
+
+
 ## Work to Be Done
 
 - Decide which language constructs to make available
   - `{% loop ... %}`
-  - `{% if ... %}`
   - ...
 - Figure out where each language construct should be usable
   - Conditional attribute values
   - Loops to define attributes
-- More expression features
-  - Subscript expressions `{{foo[bar]}}`
 - Support for "noescape" (triple brace `{{{foo}}}`)
 - Support for expressions within strings `<img src="{{cdn}}/img/{{imagePath}}">`

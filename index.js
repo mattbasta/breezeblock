@@ -32,7 +32,44 @@ exports.asHTMLGenerator = function asHTMLGenerator(parsed) {
  * @param {object} [scope] The data to render the template with
  * @return {string} The rendered HTML
  */
-exports.asHTMLGenerator = function asHTMLGenerator(parsed, scope) {
+exports.asHTML = function asHTML(parsed, scope) {
     var ctx = new InterpreterContext(scope);
     return parsed.asHTML(ctx);
+};
+
+
+/**
+ * Parses and compiles the template at the provided path
+ * @param  {string} path Path to the file
+ * @return {*}
+ */
+exports.compileTemplate = function compileTemplate(path) {
+    var source = require('fs').readFileSync(path).toString();
+    var parsed = exports.parse(source);
+    return exports.asHTMLGenerator(parsed);
+};
+
+
+/**
+ * Parses and renders the template at the provided path
+ * @param  {string} path Path to the file
+ * @param  {object} options
+ * @param  {Function} cb Callback
+ * @return {void}
+ */
+exports.renderTemplate = function renderTemplate(path, options, cb) {
+    require('fs').readFile(path, function(err, buf) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        var source = buf.toString();
+        var parsed = exports.parse(source);
+
+        try {
+            cb(null, exports.asHTML(parsed, options));
+        } catch (e) {
+            cb(e, null);
+        }
+    });
 };

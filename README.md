@@ -4,6 +4,25 @@ An experimental templating language for JS that can compile directly to DOM.
 
 Compatible with all modern browsers and IE9+.
 
+```bash
+npm install breezeblock --save
+```
+
+Using Breezeblock in Express:
+
+```js
+var express = require('express');
+var app = express();
+
+app.engine('brz', require('breezeblock').renderFile);
+app.set('view engine', 'brz');
+
+app.get('/', function(req, res) {
+    // This will render myTemplate.brz
+    res.render('myTemplate', {foo: 'bar', my: 'variables'});
+});
+```
+
 
 ## Technique
 

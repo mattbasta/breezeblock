@@ -1,6 +1,6 @@
 {
   "name": "breezeblock",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A flexible JS-based templating engine",
   "main": "index.js",
   "directories": {

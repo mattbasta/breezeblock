@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
+var path = require('path');
 
 var breezeblock = require('../index');
+var html = require('../lib/html');
 
 
 if (!process.argv[2]) {
@@ -10,7 +12,49 @@ if (!process.argv[2]) {
     process.exit(1);
 }
 
+function globEach(path_, ext, callback) {
+    fs.readdirSync(path_).forEach(function(file) {
+        file = path.resolve(path_, file);
+        var stat = fs.statSync(file);
+        if (stat && stat.isDirectory()) {
+            globEach(file, ext, callback);
+        } else {
+            // If it's got the right extension, add it to the list.
+            if (path.extname(file) === ext) {
+                callback(path.normalize(file));
+            }
+        }
+    });
+}
 
-var content = fs.readFileSync(process.argv[2]).toString();
-var parsed = breezeblock.parse(content);
-console.log(breezeblock.asDOMGenerator(parsed));
+function processFile(filePath) {
+    var content = fs.readFileSync(filePath).toString();
+    var parsed = breezeblock.parse(content);
+    return breezeblock.asDOMGenerator(parsed);
+}
+
+var output = [];
+var pattern = process.argv[2];
+if (fs.statSync(pattern).isFile()) {
+    output.push(
+        JSON.stringify(pattern) + ':' + processFile(pattern)
+    );
+} else {
+    globEach(pattern, '.brz', function(filePath) {
+        output.push(
+            JSON.stringify(path.relative(pattern, filePath)) + ':' +
+            processFile(filePath)
+        );
+    });
+}
+
+var templateBlobObj = '{' + output.join(',') + '}';
+
+var output = 'function compiledTemplate(document, template) {\n';
+output += '    var escapeMap = ' + JSON.stringify(html.escapeMap) + ';\n';
+output += '    var hesc = ' + html.escape.toString() + ';\n';
+output += '    var templates = ' + templateBlobObj + ';\n';
+output += '    return templates[template].bind(null, templates, document);\n';
+output += '}\n';
+
+console.log(output);

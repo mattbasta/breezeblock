@@ -17,6 +17,7 @@ exports.asDOMGenerator = function asDOMGenerator(parsed) {
 
 /**
  * Creates a HTML generator function
+ * @param {string} baseDir Path to the template being rendered
  * @param  {*} parsed
  * @return {string} The compiled function
  */
@@ -28,6 +29,7 @@ exports.asHTMLGenerator = function asHTMLGenerator(parsed) {
 
 /**
  * Creates a HTML response from input
+ * @param {string} baseDir Path to the template being rendered
  * @param  {*} parsed
  * @param {object} [scope] The data to render the template with
  * @return {string} The rendered HTML
@@ -53,11 +55,15 @@ exports.compileTemplate = function compileTemplate(path) {
 /**
  * Parses and renders the template at the provided path
  * @param  {string} path Path to the file
- * @param  {object} options
+ * @param  {object} [options]
  * @param  {Function} cb Callback
  * @return {void}
  */
 exports.renderTemplate = function renderTemplate(path, options, cb) {
+    if (!cb) {
+        cb = options;
+        options = {};
+    }
     require('fs').readFile(path, function(err, buf) {
         if (err) {
             cb(err, null);

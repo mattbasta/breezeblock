@@ -14,13 +14,39 @@ Using Breezeblock in Express:
 var express = require('express');
 var app = express();
 
-app.engine('brz', require('breezeblock').renderFile);
+app.engine('brz', require('breezeblock').renderTemplate);
 app.set('view engine', 'brz');
 
 app.get('/', function(req, res) {
     // This will render myTemplate.brz
     res.render('myTemplate', {foo: 'bar', my: 'variables'});
 });
+```
+
+Using Breezeblock elsewhere:
+
+```js
+var breezeblock = require('breezeblock');
+
+// On the fly
+breezeblock.renderTemplate(
+    'templates/myTemplate.brz', // Path to template
+    {my: 'variables'}, // Data to render template with
+    function(err, output) {
+        console.log(output);
+    }
+)
+
+// Compiled
+var compiledTemplate = breezeblock.compileTemplate('templates/myTemplate.brz');
+console.log(compiledTemplate({my: 'variables'}));
+
+```
+
+Compiling your templates:
+
+```bash
+breeze-compile path/to/template.brz
 ```
 
 

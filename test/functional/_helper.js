@@ -86,7 +86,7 @@ describe('Compile tests', function() {
 
                         var document = window.document;
                         var boundNode = document.createElement('div');
-                        var generatorRun = generatorLive(document, boundNode, SCOPE);
+                        var generatorRun = generatorLive({}, document, boundNode, SCOPE);
 
                         jsdom.env(expected.trim(), function(err, window) {
                             if (err) {
@@ -104,9 +104,9 @@ describe('Compile tests', function() {
 
                 it('compiles with asHTMLGenerator', function asDOMGeneratorTest(done) {
                     var ctx = new CompilerContext();
-                    var generator = parser(source).asHTMLGenerator(ctx);
+                    var generator = parser(source).asHTMLGenerator(ctx, true);
                     var generatorLive = eval('(' + generator + ')');
-                    var generatorRun = generatorLive(SCOPE);
+                    var generatorRun = generatorLive({}, SCOPE);
 
                     jsdom.env(generatorRun, function(err, window) {
                         if (err) {

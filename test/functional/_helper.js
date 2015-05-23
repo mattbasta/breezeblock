@@ -95,7 +95,7 @@ describe('Compile tests', function() {
                             }
 
 
-                            assert.equal(boundNode.innerHTML, window.document.body.innerHTML);
+                            assert.equal(boundNode.innerHTML.trim(), window.document.body.innerHTML.trim());
                             done();
                         });
 

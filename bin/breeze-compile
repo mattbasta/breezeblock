@@ -3,11 +3,15 @@
 var fs = require('fs');
 var path = require('path');
 
+var minimist = require('minimist');
+
 var breezeblock = require('../index');
 var html = require('../lib/html');
 
 
-if (!process.argv[2]) {
+var argv = minimist(process.argv.slice(2));
+
+if (argv._.length !== 1) {
     console.error('$ breeze-compile <path to brz file>');
     process.exit(1);
 }
@@ -30,7 +34,11 @@ function globEach(path_, ext, callback) {
 function processFile(filePath) {
     var content = fs.readFileSync(filePath).toString();
     var parsed = breezeblock.parse(content);
-    return breezeblock.asDOMGenerator(parsed);
+    if (argv.format === 'html') {
+        return breezeblock.asHTMLGenerator(parsed);
+    } else {
+        return breezeblock.asDOMGenerator(parsed);
+    }
 }
 
 var output = [];

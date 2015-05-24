@@ -1,1 +1,1 @@
-SyntaxError: Unexpected token ">", expected """ at line 1 near "</foo>"
+SyntaxError: Unterminated string at end of file

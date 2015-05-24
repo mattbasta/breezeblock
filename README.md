@@ -144,4 +144,3 @@ Expressions can use dot notation and subscripts:
   - Conditional attribute values
   - Loops to define attributes
 - Support for "noescape" (triple brace `{{{foo}}}`)
-- Support for expressions within strings `<img src="{{cdn}}/img/{{imagePath}}">`

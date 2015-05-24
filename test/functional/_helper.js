@@ -63,13 +63,17 @@ describe('Compile tests', function() {
                     var ctx = new InterpreterContext(SCOPE);
 
                     var asHTML = parser(source).asHTML(ctx);
-                    assert.equal(asHTML, expected.trim());
+                    try {
+                        assert.equal(asHTML, expected.trim());
+                    } catch (e) {
+                        console.log(asHTML);
+                        throw e;
+                    }
                 });
 
                 it('compiles with asDOMGenerator', function asDOMGeneratorTest(done) {
                     var ctx = new CompilerContext();
                     var generator = parser(source).asDOMGenerator(ctx);
-                    // console.log(generator);
                     var generatorLive;
                     try {
                         generatorLive = eval('(' + generator + ')');
@@ -122,8 +126,12 @@ describe('Compile tests', function() {
                                 return;
                             }
 
-
-                            assert.equal(parsedHTML, window.document.body.innerHTML);
+                            try {
+                                assert.equal(parsedHTML, window.document.body.innerHTML);
+                            } catch (e) {
+                                console.log(generator);
+                                throw e;
+                            }
                             done();
                         });
 

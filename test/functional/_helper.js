@@ -40,6 +40,8 @@ describe('Compile tests', function() {
         nested: {
             nestfoo: 'Nestfooval',
             nestbar: 'Nestbarval',
+
+            unsafe: 'That & This',
         },
 
         identNestfoo: 'nestfoo',

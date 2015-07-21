@@ -135,6 +135,15 @@ Expressions can use dot notation and subscripts:
 ```
 
 
+If you absolutely *must* output some unsanitized markup (you shouldn't), you can use Mustache's triple brace syntax:
+
+```mustache
+<div class="abandon-all-hope">
+  {{{myCompletelySanitizedValue}}}
+</div>
+```
+
+
 ## Work to Be Done
 
 - Decide which language constructs to make available
@@ -143,4 +152,3 @@ Expressions can use dot notation and subscripts:
 - Figure out where each language construct should be usable
   - Conditional attribute values
   - Loops to define attributes
-- Support for "noescape" (triple brace `{{{foo}}}`)

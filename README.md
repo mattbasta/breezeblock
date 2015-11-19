@@ -1,5 +1,7 @@
 # BreezeBlock
 
+[![Build Status](https://travis-ci.org/mattbasta/breezeblock.svg?branch=master)](https://travis-ci.org/mattbasta/breezeblock)
+
 An experimental templating language for JS that can compile directly to DOM.
 
 Compatible with all modern browsers and IE9+.
